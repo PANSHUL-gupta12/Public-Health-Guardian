@@ -11,20 +11,20 @@ interface Props {
 }
 
 export const PageHeader = ({ icon, eyebrow, title, description, actions, className }: Props) => (
-  <div className={cn("flex items-start justify-between gap-4 flex-wrap", className)}>
-    <div className="flex items-start gap-4">
+  <div className={cn("flex items-start justify-between gap-4 flex-wrap mb-5", className)}>
+    <div className="flex items-start gap-3">
       {icon && (
-        <div className="h-12 w-12 rounded-2xl bg-gradient-brand grid place-items-center shadow-glow shrink-0">
+        <div className="h-11 w-11 rounded-xl bg-gradient-brand grid place-items-center shadow-glow shrink-0">
           {icon}
         </div>
       )}
       <div>
         {eyebrow && (
-          <div className="text-xs uppercase tracking-[0.18em] text-primary/80 font-medium">{eyebrow}</div>
+          <div className="text-[11px] uppercase tracking-[0.18em] text-primary/80 font-medium mb-0.5">
+            {eyebrow}
+          </div>
         )}
-        <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
-          <span className="text-gradient-brand">{title}</span>
-        </h1>
+        <h1 className="text-xl md:text-2xl font-semibold tracking-tight leading-tight">{title}</h1>
         {description && <p className="text-sm text-muted-foreground mt-1 max-w-2xl">{description}</p>}
       </div>
     </div>
