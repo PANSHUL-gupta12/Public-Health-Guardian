@@ -1,16 +1,59 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { AuthProvider } from "@/context/AuthContext";
+import { TopBar } from "@/components/layout/TopBar";
+import { Sidebar } from "@/components/layout/Sidebar";
+import { BackgroundOrbs } from "@/components/layout/BackgroundOrbs";
+import { AccessGuard } from "@/components/AccessGuard";
+import { PageId } from "@/context/AuthContext";
+import { ChatPage } from "./views/ChatPage";
+import { FakeNewsPage } from "./views/FakeNewsPage";
+import { QuizPage } from "./views/QuizPage";
+import { RewardsPage } from "./views/RewardsPage";
+import { DiseaseMapPage } from "./views/DiseaseMapPage";
+import { MedicalRecordsPage } from "./views/MedicalRecordsPage";
+import { AdminPanelPage } from "./views/AdminPanelPage";
+import { FaqsPage } from "./views/FaqsPage";
+import { ProfilePage } from "./views/ProfilePage";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+const Shell = () => {
+  const [active, setActive] = useState<PageId>("chat");
+
+  const renderPage = () => {
+    switch (active) {
+      case "chat": return <ChatPage />;
+      case "fake-news": return <FakeNewsPage />;
+      case "quiz": return <QuizPage />;
+      case "rewards": return <RewardsPage />;
+      case "disease-map": return <DiseaseMapPage />;
+      case "medical-records": return <MedicalRecordsPage />;
+      case "admin-panel": return <AdminPanelPage />;
+      case "faqs": return <FaqsPage />;
+      case "profile": return <ProfilePage />;
+    }
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="h-screen flex flex-col overflow-hidden">
+      <BackgroundOrbs />
+      <TopBar />
+      <div className="flex-1 flex min-h-0">
+        <Sidebar active={active} onSelect={setActive} />
+        <main className="flex-1 overflow-y-auto scrollbar-thin p-5 md:p-7 relative z-10">
+          <div className="max-w-6xl mx-auto h-full animate-fade-in" key={active}>
+            <AccessGuard page={active} onSwitch={setActive}>
+              {renderPage()}
+            </AccessGuard>
+          </div>
+        </main>
+      </div>
     </div>
   );
 };
 
-const Index = PlaceholderIndex;
+const Index = () => (
+  <AuthProvider>
+    <Shell />
+  </AuthProvider>
+);
 
 export default Index;
