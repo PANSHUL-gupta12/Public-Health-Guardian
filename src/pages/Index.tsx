@@ -38,10 +38,14 @@ const Shell = () => {
       <TopBar />
       <div className="flex-1 flex min-h-0">
         <Sidebar active={active} onSelect={setActive} />
-        <main className="flex-1 overflow-y-auto scrollbar-thin p-5 md:p-7 relative z-10">
-          <div className="max-w-6xl mx-auto h-full animate-fade-in" key={active}>
+        <main className="flex-1 overflow-hidden p-4 pl-0 relative z-10">
+          <div className="h-full animate-fade-in" key={active}>
             <AccessGuard page={active} onSwitch={setActive}>
-              {renderPage()}
+              {active === "chat" ? (
+                renderPage()
+              ) : (
+                <div className="h-full overflow-y-auto scrollbar-thin pr-1">{renderPage()}</div>
+              )}
             </AccessGuard>
           </div>
         </main>
