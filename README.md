@@ -1,6 +1,6 @@
 # 🛡️ Public Health Guardian
 
-![Public Health Guardian Banner](https://via.placeholder.com/1200x400.png?text=Public+Health+Guardian) <!-- Replace with actual banner if available -->
+
 
 > An AI-powered public health intelligence platform designed to bridge the gap between patients, healthcare professionals, and system administrators with role-based access and intelligent tools.
 
