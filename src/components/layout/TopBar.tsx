@@ -1,21 +1,10 @@
-import { Search, ChevronDown, Check } from "lucide-react";
+import { Search } from "lucide-react";
 import { useState } from "react";
-import { Role, roleMeta, useAuth } from "@/context/AuthContext";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { useAuth } from "@/context/AuthContext";
 import { cn } from "@/lib/utils";
 
-const roles: Role[] = ["patient", "doctor", "admin", "guest"];
-
 export const TopBar = () => {
-  const { role, setRole, user } = useAuth();
-  const meta = roleMeta[role];
+  const { user } = useAuth();
   const [q, setQ] = useState("");
   const initials = user.name.split(" ").map((p) => p[0]).slice(0, 2).join("");
 
@@ -44,61 +33,9 @@ export const TopBar = () => {
         </div>
       </div>
 
-      {/* Right: role + avatar */}
+      {/* Right: profile avatar */}
       <div className="ml-auto flex items-center gap-3">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button
-              className="group hidden sm:flex items-center gap-2 pl-1 pr-3 py-1 rounded-full glass border border-border/60 hover:border-primary/40 transition-colors"
-            >
-              <span
-                className={cn(
-                  "h-7 w-7 rounded-full bg-gradient-to-br grid place-items-center text-[11px] font-bold text-white",
-                  meta.from,
-                  meta.to,
-                )}
-              >
-                {meta.label[0]}
-              </span>
-              <span className="text-xs font-medium">{meta.label}</span>
-              <ChevronDown className="h-3.5 w-3.5 text-muted-foreground group-hover:text-foreground transition-colors" />
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-64 glass border-border/60">
-            <DropdownMenuLabel className="text-xs uppercase tracking-wider text-muted-foreground">
-              Switch role
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            {roles.map((r) => {
-              const m = roleMeta[r];
-              const active = r === role;
-              return (
-                <DropdownMenuItem
-                  key={r}
-                  onClick={() => setRole(r)}
-                  className="flex items-start gap-3 cursor-pointer py-2.5"
-                >
-                  <span
-                    className={cn(
-                      "h-7 w-7 rounded-full bg-gradient-to-br grid place-items-center text-[11px] font-bold text-white shrink-0",
-                      m.from,
-                      m.to,
-                    )}
-                  >
-                    {m.label[0]}
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium">{m.label}</div>
-                    <div className="text-[11px] text-muted-foreground truncate">{m.description}</div>
-                  </div>
-                  {active && <Check className="h-4 w-4 text-primary mt-1.5" />}
-                </DropdownMenuItem>
-              );
-            })}
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <div className={cn("p-[2px] rounded-full bg-gradient-to-br", meta.from, meta.to)}>
+        <div className="p-[2px] rounded-full bg-gradient-to-br from-emerald-500 to-teal-400">
           <div className="h-9 w-9 rounded-full bg-background grid place-items-center text-xs font-semibold">
             {initials}
           </div>

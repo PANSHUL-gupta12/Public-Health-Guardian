@@ -9,8 +9,7 @@ interface Props {
 }
 
 export const Sidebar = ({ active, onSelect }: Props) => {
-  const { hasAccess } = useAuth();
-  const visible = pages.filter((p) => hasAccess(p.id));
+  const visible = pages;
 
   return (
     <aside className="hidden md:flex w-72 shrink-0 flex-col p-4 gap-4 relative z-10">

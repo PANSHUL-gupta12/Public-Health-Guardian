@@ -3,14 +3,12 @@ import { AuthProvider } from "@/context/AuthContext";
 import { TopBar } from "@/components/layout/TopBar";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { BackgroundOrbs } from "@/components/layout/BackgroundOrbs";
-import { AccessGuard } from "@/components/AccessGuard";
 import { PageId } from "@/context/AuthContext";
 import { ChatPage } from "./views/ChatPage";
 import { FakeNewsPage } from "./views/FakeNewsPage";
 import { QuizPage } from "./views/QuizPage";
 import { RewardsPage } from "./views/RewardsPage";
 import { DiseaseMapPage } from "./views/DiseaseMapPage";
-import { MedicalRecordsPage } from "./views/MedicalRecordsPage";
 import { AdminPanelPage } from "./views/AdminPanelPage";
 import { FaqsPage } from "./views/FaqsPage";
 import { ProfilePage } from "./views/ProfilePage";
@@ -25,7 +23,6 @@ const Shell = () => {
       case "quiz": return <QuizPage />;
       case "rewards": return <RewardsPage />;
       case "disease-map": return <DiseaseMapPage />;
-      case "medical-records": return <MedicalRecordsPage />;
       case "admin-panel": return <AdminPanelPage />;
       case "faqs": return <FaqsPage />;
       case "profile": return <ProfilePage />;
@@ -40,13 +37,11 @@ const Shell = () => {
         <Sidebar active={active} onSelect={setActive} />
         <main className="flex-1 overflow-hidden p-4 pl-0 relative z-10">
           <div className="h-full animate-fade-in" key={active}>
-            <AccessGuard page={active} onSwitch={setActive}>
-              {active === "chat" ? (
-                renderPage()
-              ) : (
-                <div className="h-full overflow-y-auto scrollbar-thin pr-1">{renderPage()}</div>
-              )}
-            </AccessGuard>
+            {active === "chat" ? (
+              renderPage()
+            ) : (
+              <div className="h-full overflow-y-auto scrollbar-thin pr-1">{renderPage()}</div>
+            )}
           </div>
         </main>
       </div>
